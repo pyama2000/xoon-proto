@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package kintai.v1;
+
+option go_package = "github.com/pyama2000/xoon-proto/gen/go/kintai/v1";
+
+service KintaiService {
+  rpc Start(StartRequest) returns (StartResponse) {}
+  rpc Finish(FinishRequest) returns (FinishResponse) {}
+}
+
+message StartRequest {}
+message StartResponse {}
+message FinishRequest {}
+message FinishResponse {}
