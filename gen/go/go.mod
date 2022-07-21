@@ -1,4 +1,4 @@
-module github.com/RettyInc/retty3-proto/go
+module github.com/pyama2000/xoon-proto/gen/go
 
 go 1.18
 
