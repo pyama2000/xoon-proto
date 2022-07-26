@@ -17,6 +17,7 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type NotificationServiceClient interface {
+	GetSlackChannelIds(ctx context.Context, in *GetSlackChannelIdsRequest, opts ...grpc.CallOption) (*GetSlackChannelIdsResponse, error)
 	Notify(ctx context.Context, in *NotifyRequest, opts ...grpc.CallOption) (*NotifyResponse, error)
 }
 
@@ -26,6 +27,15 @@ type notificationServiceClient struct {
 
 func NewNotificationServiceClient(cc grpc.ClientConnInterface) NotificationServiceClient {
 	return &notificationServiceClient{cc}
+}
+
+func (c *notificationServiceClient) GetSlackChannelIds(ctx context.Context, in *GetSlackChannelIdsRequest, opts ...grpc.CallOption) (*GetSlackChannelIdsResponse, error) {
+	out := new(GetSlackChannelIdsResponse)
+	err := c.cc.Invoke(ctx, "/notification.v1.NotificationService/GetSlackChannelIds", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
 }
 
 func (c *notificationServiceClient) Notify(ctx context.Context, in *NotifyRequest, opts ...grpc.CallOption) (*NotifyResponse, error) {
@@ -41,6 +51,7 @@ func (c *notificationServiceClient) Notify(ctx context.Context, in *NotifyReques
 // All implementations should embed UnimplementedNotificationServiceServer
 // for forward compatibility
 type NotificationServiceServer interface {
+	GetSlackChannelIds(context.Context, *GetSlackChannelIdsRequest) (*GetSlackChannelIdsResponse, error)
 	Notify(context.Context, *NotifyRequest) (*NotifyResponse, error)
 }
 
@@ -48,6 +59,9 @@ type NotificationServiceServer interface {
 type UnimplementedNotificationServiceServer struct {
 }
 
+func (UnimplementedNotificationServiceServer) GetSlackChannelIds(context.Context, *GetSlackChannelIdsRequest) (*GetSlackChannelIdsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetSlackChannelIds not implemented")
+}
 func (UnimplementedNotificationServiceServer) Notify(context.Context, *NotifyRequest) (*NotifyResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Notify not implemented")
 }
@@ -61,6 +75,24 @@ type UnsafeNotificationServiceServer interface {
 
 func RegisterNotificationServiceServer(s grpc.ServiceRegistrar, srv NotificationServiceServer) {
 	s.RegisterService(&_NotificationService_serviceDesc, srv)
+}
+
+func _NotificationService_GetSlackChannelIds_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetSlackChannelIdsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(NotificationServiceServer).GetSlackChannelIds(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/notification.v1.NotificationService/GetSlackChannelIds",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(NotificationServiceServer).GetSlackChannelIds(ctx, req.(*GetSlackChannelIdsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
 func _NotificationService_Notify_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -85,6 +117,10 @@ var _NotificationService_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "notification.v1.NotificationService",
 	HandlerType: (*NotificationServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "GetSlackChannelIds",
+			Handler:    _NotificationService_GetSlackChannelIds_Handler,
+		},
 		{
 			MethodName: "Notify",
 			Handler:    _NotificationService_Notify_Handler,

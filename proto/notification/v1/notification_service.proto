@@ -21,6 +21,16 @@ message NotifyRequest {
 
 message NotifyResponse {}
 
+message GetSlackChannelIdsRequest {
+  repeated string names = 1;
+}
+
+message GetSlackChannelIdsResponse {
+  repeated string ids = 1;
+}
+
 service NotificationService {
+  rpc GetSlackChannelIds(GetSlackChannelIdsRequest)
+      returns (GetSlackChannelIdsResponse) {}
   rpc Notify(NotifyRequest) returns (NotifyResponse) {}
 }
