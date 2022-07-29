@@ -3,7 +3,6 @@
 ## Prerequisites
 
 - [buf](https://docs.buf.build/installation)
-- [clang-format](https://clang.llvm.org/docs/ClangFormat.html)
 
 ## Setup
 
