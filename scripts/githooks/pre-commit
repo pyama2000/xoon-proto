@@ -1,10 +1,8 @@
 #!/bin/sh
 
 buf lint
-
-find ./proto/ -name "*.proto" | xargs clang-format -i
-diff=$(git diff --name-only proto/)
-if [ -n "$diff" ]; then
-  echo 'Format proto file'
+result=0; buf format --diff --exit-code proto || result=$?
+if [ "$result" != 0 ]; then
   exit 1
 fi
+buf generate proto
