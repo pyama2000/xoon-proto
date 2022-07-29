@@ -2,9 +2,9 @@ syntax = "proto3";
 
 package kintai.v1;
 
-option go_package = "github.com/pyama2000/xoon-proto/gen/go/kintai/v1";
-
 import "google/protobuf/wrappers.proto";
+
+option go_package = "github.com/pyama2000/xoon-proto/gen/go/kintai/v1";
 
 service KintaiService {
   rpc Start(StartRequest) returns (StartResponse) {}
@@ -14,11 +14,11 @@ service KintaiService {
 message StartRequest {
   enum Place {
     PLACE_UNSPECIFIED = 0;
-    PLACE_HOME        = 1;
-    PLACE_OFFICE      = 2;
+    PLACE_HOME = 1;
+    PLACE_OFFICE = 2;
   }
 
-  Place    place                                         = 1;
+  Place place = 1;
   repeated google.protobuf.StringValue slack_channel_ids = 2;
 }
 

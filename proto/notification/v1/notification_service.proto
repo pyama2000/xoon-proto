@@ -6,14 +6,14 @@ option go_package = "github.com/pyama2000/xoon-proto/gen/go/notification/v1";
 
 enum Provider {
   PROVIDER_UNSPECIFIED = 0;
-  PROVIDER_SLACK       = 1;
+  PROVIDER_SLACK = 1;
 }
 
 message NotifyRequest {
   message Information {
-    string          content      = 1;
+    string content = 1;
     repeated string destinations = 2;
-    Provider        provider     = 3;
+    Provider provider = 3;
   }
 
   Information information = 1;
