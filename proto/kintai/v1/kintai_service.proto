@@ -19,7 +19,7 @@ message StartRequest {
   }
 
   Place place = 1;
-  repeated google.protobuf.StringValue slack_channel_ids = 2;
+  repeated google.protobuf.StringValue slack_channel_names = 2;
 }
 
 message StartResponse {}
