@@ -3,6 +3,7 @@ syntax = "proto3";
 package automation.v1;
 
 import "google/protobuf/timestamp.proto";
+import "google/protobuf/wrappers.proto";
 
 option go_package = "github.com/pyama2000/xoon-proto/gen/go/automation/v1";
 
@@ -21,7 +22,7 @@ message CreateReleasePRRequest {
 }
 
 message CreateReleasePRResponse {
-  string url = 1;
+  google.protobuf.StringValue url = 1;
 }
 
 service ReleaseService {
