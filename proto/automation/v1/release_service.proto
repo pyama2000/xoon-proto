@@ -6,7 +6,7 @@ import "google/protobuf/timestamp.proto";
 
 option go_package = "github.com/pyama2000/xoon-proto/gen/go/automation/v1";
 
-message CreateReleasePRsRequest {
+message CreateReleasePRRequest {
   enum Repository {
     REPOSITORY_UNSPECIFIED = 0;
     REPOSITORY_EZ = 1;
@@ -16,18 +16,14 @@ message CreateReleasePRsRequest {
     REPOSITORY_PA = 5;
   }
 
-  message Information {
-    Repository repository = 1;
-    google.protobuf.Timestamp last_release_time = 2;
-  }
-
-  repeated Information information = 1;
+  Repository repository = 1;
+  google.protobuf.Timestamp last_release_time = 2;
 }
 
-message CreateReleasePRsResponse {
+message CreateReleasePRResponse {
   string url = 1;
 }
 
 service ReleaseService {
-  rpc CreateReleasePRs(CreateReleasePRsRequest) returns (CreateReleasePRsResponse) {}
+  rpc CreateReleasePR(CreateReleasePRRequest) returns (CreateReleasePRResponse) {}
 }

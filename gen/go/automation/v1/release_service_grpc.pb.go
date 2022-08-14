@@ -22,7 +22,7 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ReleaseServiceClient interface {
-	CreateReleasePRs(ctx context.Context, in *CreateReleasePRsRequest, opts ...grpc.CallOption) (*CreateReleasePRsResponse, error)
+	CreateReleasePR(ctx context.Context, in *CreateReleasePRRequest, opts ...grpc.CallOption) (*CreateReleasePRResponse, error)
 }
 
 type releaseServiceClient struct {
@@ -33,9 +33,9 @@ func NewReleaseServiceClient(cc grpc.ClientConnInterface) ReleaseServiceClient {
 	return &releaseServiceClient{cc}
 }
 
-func (c *releaseServiceClient) CreateReleasePRs(ctx context.Context, in *CreateReleasePRsRequest, opts ...grpc.CallOption) (*CreateReleasePRsResponse, error) {
-	out := new(CreateReleasePRsResponse)
-	err := c.cc.Invoke(ctx, "/automation.v1.ReleaseService/CreateReleasePRs", in, out, opts...)
+func (c *releaseServiceClient) CreateReleasePR(ctx context.Context, in *CreateReleasePRRequest, opts ...grpc.CallOption) (*CreateReleasePRResponse, error) {
+	out := new(CreateReleasePRResponse)
+	err := c.cc.Invoke(ctx, "/automation.v1.ReleaseService/CreateReleasePR", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -46,15 +46,15 @@ func (c *releaseServiceClient) CreateReleasePRs(ctx context.Context, in *CreateR
 // All implementations should embed UnimplementedReleaseServiceServer
 // for forward compatibility
 type ReleaseServiceServer interface {
-	CreateReleasePRs(context.Context, *CreateReleasePRsRequest) (*CreateReleasePRsResponse, error)
+	CreateReleasePR(context.Context, *CreateReleasePRRequest) (*CreateReleasePRResponse, error)
 }
 
 // UnimplementedReleaseServiceServer should be embedded to have forward compatible implementations.
 type UnimplementedReleaseServiceServer struct {
 }
 
-func (UnimplementedReleaseServiceServer) CreateReleasePRs(context.Context, *CreateReleasePRsRequest) (*CreateReleasePRsResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateReleasePRs not implemented")
+func (UnimplementedReleaseServiceServer) CreateReleasePR(context.Context, *CreateReleasePRRequest) (*CreateReleasePRResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateReleasePR not implemented")
 }
 
 // UnsafeReleaseServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -68,20 +68,20 @@ func RegisterReleaseServiceServer(s grpc.ServiceRegistrar, srv ReleaseServiceSer
 	s.RegisterService(&ReleaseService_ServiceDesc, srv)
 }
 
-func _ReleaseService_CreateReleasePRs_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CreateReleasePRsRequest)
+func _ReleaseService_CreateReleasePR_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateReleasePRRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ReleaseServiceServer).CreateReleasePRs(ctx, in)
+		return srv.(ReleaseServiceServer).CreateReleasePR(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/automation.v1.ReleaseService/CreateReleasePRs",
+		FullMethod: "/automation.v1.ReleaseService/CreateReleasePR",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ReleaseServiceServer).CreateReleasePRs(ctx, req.(*CreateReleasePRsRequest))
+		return srv.(ReleaseServiceServer).CreateReleasePR(ctx, req.(*CreateReleasePRRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -94,8 +94,8 @@ var ReleaseService_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*ReleaseServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "CreateReleasePRs",
-			Handler:    _ReleaseService_CreateReleasePRs_Handler,
+			MethodName: "CreateReleasePR",
+			Handler:    _ReleaseService_CreateReleasePR_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
