@@ -15,6 +15,7 @@ message CreateReleasePRRequest {
     REPOSITORY_EA = 3;
     REPOSITORY_FC = 4;
     REPOSITORY_PA = 5;
+    REPOSITORY_FMC = 6;
   }
 
   Repository repository = 1;
