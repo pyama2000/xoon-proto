@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package server_status.v1;
+
+option go_package = "github.com/pyama2000/xoon-proto/gen/go/server_status/v1";
+
+message GetStatusRequest {}
+
+message GetStatusResponse {
+  enum ApplicationEnvironment {
+    APPLICATION_ENVIRONMENT_UNSPECIFIED = 0;
+    APPLICATION_ENVIRONMENT_DEVELOPMENT = 1;
+    APPLICATION_ENVIRONMENT_STAGING = 2;
+    APPLICATION_ENVIRONMENT_PRODUCTION = 3;
+  }
+
+  ApplicationEnvironment application_environment = 1;
+}
+
+service ServerStatusService {
+  rpc GetStatus(GetStatusRequest) returns (GetStatusResponse) {}
+}
