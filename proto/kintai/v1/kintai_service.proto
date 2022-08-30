@@ -6,11 +6,6 @@ import "google/protobuf/wrappers.proto";
 
 option go_package = "github.com/pyama2000/xoon-proto/gen/go/kintai/v1";
 
-service KintaiService {
-  rpc Start(StartRequest) returns (StartResponse) {}
-  rpc Finish(FinishRequest) returns (FinishResponse) {}
-}
-
 message StartRequest {
   enum Place {
     PLACE_UNSPECIFIED = 0;
@@ -19,9 +14,20 @@ message StartRequest {
   }
 
   Place place = 1;
-  repeated google.protobuf.StringValue slack_channel_names = 2;
+  repeated google.protobuf.StringValue slack_channel_names = 2 [deprecated = true];
+  repeated google.protobuf.StringValue slack_channels = 3;
 }
 
 message StartResponse {}
-message FinishRequest {}
+
+message FinishRequest {
+  repeated google.protobuf.StringValue slack_channels = 1;
+  optional string content = 2;
+}
+
 message FinishResponse {}
+
+service KintaiService {
+  rpc Start(StartRequest) returns (StartResponse) {}
+  rpc Finish(FinishRequest) returns (FinishResponse) {}
+}
