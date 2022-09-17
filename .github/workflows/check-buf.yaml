@@ -1,7 +1,7 @@
-name: workflow-for-pull-request
+name: check protobuf
 on: pull_request
 jobs:
-  check:
+  check-buf:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -16,7 +16,7 @@ jobs:
           go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
       - uses: bufbuild/buf-setup-action@v1
       - uses: bufbuild/buf-lint-action@v1
-      - name: Format all Protobuf files
+      - name: Format all protobuf files
         run: |
           buf format --write
           if git diff --exit-code --quiet; then
@@ -25,9 +25,9 @@ jobs:
           git config user.name 'github-actions'
           git config user.email 'github-actions[bot]@users.noreply.github.com'
           git add --all
-          git commit -m "Format all Protobuf files"
+          git commit -m "Run buf format"
           git push origin @
-      - name: Generate code from all Protobuf files
+      - name: Generate code from all protobuf files
         run: |
           buf generate
           if git diff --exit-code --quiet; then
@@ -36,10 +36,8 @@ jobs:
           git config user.name 'github-actions'
           git config user.email 'github-actions[bot]@users.noreply.github.com'
           git add --all
-          git commit -m "Generate code from all Protobuf files"
+          git commit -m "Run buf generate"
           git push origin @
-      - name: Commit, add and push all diff files
-        run: |
       - uses: bufbuild/buf-breaking-action@v1
         with:
           against: 'https://github.com/${GITHUB_REPOSITORY}.git#branch=main'
