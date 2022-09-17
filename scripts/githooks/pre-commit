@@ -1,8 +1,14 @@
-#!/bin/sh
+#!/bin/sh -eu
 
+# For protobuf
 buf lint
 result=0; buf format --diff --exit-code proto || result=$?
 if [ "$result" != 0 ]; then
   exit 1
 fi
 buf generate proto
+
+# For Rust
+cargo_toml_path=$(find . -name 'Cargo.toml')
+cargo clippy --manifest-path "$cargo_toml_path" --bins --tests --examples --all -- -D warnings
+cargo fmt --manifest-path "$cargo_toml_path" --check
