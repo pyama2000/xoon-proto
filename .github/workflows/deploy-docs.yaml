@@ -1,0 +1,32 @@
+name: doc
+on:
+  push:
+    tags:
+      - "[0-9]+.[0-9]+.[0-9]+"
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: arduino/setup-protoc@v1
+      - uses: Swatinem/rust-cache@v2
+      - name: Build a documentation
+        run: cargo doc --manifest-path './gen/rust/Cargo.toml' --release --no-deps
+      - uses: actions/upload-pages-artifact@v1
+        with:
+          path: "./gen/rust/target/doc/"
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v1
