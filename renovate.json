@@ -1,6 +1,17 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:base"
+    "config:base",
+    ":automergePatch",
+    ":automergeMinor",
+    ":disableRateLimiting"
+  ],
+  "labels": ["dependencies"],
+  "postUpdateOptions": ["gomodTidy"],
+  "packageRules": [
+    {
+      "matchPackagePatterns": ["^tonic", "^prost"],
+      "groupName": "proto"
+    }
   ]
 }
