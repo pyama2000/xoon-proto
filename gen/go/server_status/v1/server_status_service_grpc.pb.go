@@ -4,7 +4,7 @@
 // - protoc             (unknown)
 // source: server_status/v1/server_status_service.proto
 
-package v1
+package server_statusv1
 
 import (
 	context "context"

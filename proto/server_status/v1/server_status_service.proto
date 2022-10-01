@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package server_status.v1;
 
-option go_package = "github.com/pyama2000/xoon-proto/gen/go/server_status/v1";
+option go_package = "github.com/pyama2000/xoon-proto/gen/go/server_status/v1;server_statusv1";
 
 message GetStatusRequest {}
 

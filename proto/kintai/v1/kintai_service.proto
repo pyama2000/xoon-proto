@@ -4,7 +4,7 @@ package kintai.v1;
 
 import "google/protobuf/wrappers.proto";
 
-option go_package = "github.com/pyama2000/xoon-proto/gen/go/kintai/v1";
+option go_package = "github.com/pyama2000/xoon-proto/gen/go/kintai/v1;kintaiv1";
 
 message StartRequest {
   enum Place {

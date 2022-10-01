@@ -4,7 +4,7 @@
 // - protoc             (unknown)
 // source: automation/v1/release_service.proto
 
-package v1
+package automaitonv1
 
 import (
 	context "context"

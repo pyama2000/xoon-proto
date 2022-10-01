@@ -4,7 +4,7 @@
 // - protoc             (unknown)
 // source: kintai/v1/kintai_service.proto
 
-package v1
+package kintaiv1
 
 import (
 	context "context"

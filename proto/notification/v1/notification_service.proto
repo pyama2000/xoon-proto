@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package notification.v1;
 
-option go_package = "github.com/pyama2000/xoon-proto/gen/go/notification/v1";
+option go_package = "github.com/pyama2000/xoon-proto/gen/go/notification/v1;notificationv1";
 
 enum Provider {
   PROVIDER_UNSPECIFIED = 0;
