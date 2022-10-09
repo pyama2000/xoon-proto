@@ -36,5 +36,12 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             )],
             &[PROTO_ROOT_DIR],
         )?;
+    tonic_build::configure()
+        .protoc_arg("--experimental_allow_proto3_optional")
+        .file_descriptor_set_path(out_dir.join("lib_descriptor.bin"))
+        .compile(
+            &[format!("{PROTO_ROOT_DIR}/lib/v1/date.proto")],
+            &[PROTO_ROOT_DIR],
+        )?;
     Ok(())
 }
