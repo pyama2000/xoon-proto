@@ -291,7 +291,6 @@ type GetSummariesRequest struct {
 
 	DateRange GetSummariesRequest_DateRange `protobuf:"varint,1,opt,name=date_range,json=dateRange,proto3,enum=kintai.v1.GetSummariesRequest_DateRange" json:"date_range,omitempty"`
 	// Types that are assignable to DateAt:
-	//
 	//	*GetSummariesRequest_StartTo
 	//	*GetSummariesRequest_FinishFrom
 	DateAt isGetSummariesRequest_DateAt `protobuf_oneof:"date_at"`
