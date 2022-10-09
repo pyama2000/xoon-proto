@@ -34,3 +34,10 @@ pub mod server_status {
             tonic::include_file_descriptor_set!("server_status_service_descriptor");
     }
 }
+
+pub mod lib {
+    pub mod v1 {
+        tonic::include_proto!("lib.v1");
+        pub const LIB_DESCRIPTOR_SET: &[u8] = tonic::include_file_descriptor_set!("lib_descriptor");
+    }
+}
