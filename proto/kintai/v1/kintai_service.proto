@@ -2,8 +2,8 @@ syntax = "proto3";
 
 package kintai.v1;
 
+import "google/protobuf/timestamp.proto";
 import "google/protobuf/wrappers.proto";
-import "lib/v1/date.proto";
 
 option go_package = "github.com/pyama2000/xoon-proto/gen/go/kintai/v1;kintaiv1";
 
@@ -27,24 +27,28 @@ message FinishRequest {
 }
 
 message GetSummariesRequest {
-  enum DateRange {
-    DATE_RANGE_UNSPECIFIED = 0;
-    DATE_RANGE_WEEKLY = 1;
-    DATE_RANGE_MONTHLY = 2;
-    DATE_RANGE_QUARTER = 3;
-    DATE_RANGE_HALF_YEAR = 4;
+  enum RangeType {
+    RANGE_TYPE_UNSPECIFIED = 0;
+    RANGE_TYPE_WEEKLY = 1;
+    RANGE_TYPE_MONTHLY = 2;
+    RANGE_TYPE_QUARTER = 3;
+    RANGE_TYPE_HALF_YEAR = 4;
   }
 
-  DateRange date_range = 1;
-  oneof date_at {
-    lib.v1.Date start_to = 2;
-    lib.v1.Date finish_from = 3;
+  message DateRange {
+    google.protobuf.Timestamp start = 1;
+    google.protobuf.Timestamp end = 2;
+  }
+
+  oneof range {
+    RangeType type = 1;
+    DateRange date_range = 2;
   }
 }
 
 message GetSummariesResponse {
   message Content {
-    lib.v1.Date date = 1;
+    google.protobuf.Timestamp date = 1;
     string summary = 2;
   }
 
