@@ -25,6 +25,7 @@ type KintaiServiceClient interface {
 	Start(ctx context.Context, in *StartRequest, opts ...grpc.CallOption) (*StartResponse, error)
 	Finish(ctx context.Context, in *FinishRequest, opts ...grpc.CallOption) (*FinishResponse, error)
 	GetSummaries(ctx context.Context, in *GetSummariesRequest, opts ...grpc.CallOption) (*GetSummariesResponse, error)
+	UpdateConfig(ctx context.Context, in *UpdateConfigRequest, opts ...grpc.CallOption) (*UpdateConfigResponse, error)
 }
 
 type kintaiServiceClient struct {
@@ -62,6 +63,15 @@ func (c *kintaiServiceClient) GetSummaries(ctx context.Context, in *GetSummaries
 	return out, nil
 }
 
+func (c *kintaiServiceClient) UpdateConfig(ctx context.Context, in *UpdateConfigRequest, opts ...grpc.CallOption) (*UpdateConfigResponse, error) {
+	out := new(UpdateConfigResponse)
+	err := c.cc.Invoke(ctx, "/kintai.v1.KintaiService/UpdateConfig", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // KintaiServiceServer is the server API for KintaiService service.
 // All implementations should embed UnimplementedKintaiServiceServer
 // for forward compatibility
@@ -69,6 +79,7 @@ type KintaiServiceServer interface {
 	Start(context.Context, *StartRequest) (*StartResponse, error)
 	Finish(context.Context, *FinishRequest) (*FinishResponse, error)
 	GetSummaries(context.Context, *GetSummariesRequest) (*GetSummariesResponse, error)
+	UpdateConfig(context.Context, *UpdateConfigRequest) (*UpdateConfigResponse, error)
 }
 
 // UnimplementedKintaiServiceServer should be embedded to have forward compatible implementations.
@@ -83,6 +94,9 @@ func (UnimplementedKintaiServiceServer) Finish(context.Context, *FinishRequest) 
 }
 func (UnimplementedKintaiServiceServer) GetSummaries(context.Context, *GetSummariesRequest) (*GetSummariesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetSummaries not implemented")
+}
+func (UnimplementedKintaiServiceServer) UpdateConfig(context.Context, *UpdateConfigRequest) (*UpdateConfigResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateConfig not implemented")
 }
 
 // UnsafeKintaiServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -150,6 +164,24 @@ func _KintaiService_GetSummaries_Handler(srv interface{}, ctx context.Context, d
 	return interceptor(ctx, in, info, handler)
 }
 
+func _KintaiService_UpdateConfig_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateConfigRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(KintaiServiceServer).UpdateConfig(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/kintai.v1.KintaiService/UpdateConfig",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(KintaiServiceServer).UpdateConfig(ctx, req.(*UpdateConfigRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // KintaiService_ServiceDesc is the grpc.ServiceDesc for KintaiService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -168,6 +200,10 @@ var KintaiService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetSummaries",
 			Handler:    _KintaiService_GetSummaries_Handler,
+		},
+		{
+			MethodName: "UpdateConfig",
+			Handler:    _KintaiService_UpdateConfig_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

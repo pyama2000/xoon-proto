@@ -26,6 +26,8 @@ message FinishRequest {
   optional string content = 2;
 }
 
+message FinishResponse {}
+
 message GetSummariesRequest {
   enum RangeType {
     RANGE_TYPE_UNSPECIFIED = 0;
@@ -55,10 +57,25 @@ message GetSummariesResponse {
   repeated Content content = 1;
 }
 
-message FinishResponse {}
+enum Config {
+  CONFIG_UNSPECIFIED = 0;
+  CONFIG_KINTAI_NOTIFICATION_DESTINATION = 1;
+}
+
+message ConfigMap {
+  Config key = 1;
+  string value = 2;
+}
+
+message UpdateConfigRequest {
+  repeated ConfigMap configs = 1;
+}
+
+message UpdateConfigResponse {}
 
 service KintaiService {
   rpc Start(StartRequest) returns (StartResponse) {}
   rpc Finish(FinishRequest) returns (FinishResponse) {}
   rpc GetSummaries(GetSummariesRequest) returns (GetSummariesResponse) {}
+  rpc UpdateConfig(UpdateConfigRequest) returns (UpdateConfigResponse) {}
 }
