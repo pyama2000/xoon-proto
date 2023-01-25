@@ -9,12 +9,13 @@ option go_package = "github.com/pyama2000/xoon-proto/gen/go/kintai/v1;kintaiv1";
 
 message StartRequest {
   enum Place {
+    option deprecated = true;
     PLACE_UNSPECIFIED = 0;
     PLACE_HOME = 1;
     PLACE_OFFICE = 2;
   }
 
-  Place place = 1;
+  Place place = 1 [deprecated = true];
   repeated google.protobuf.StringValue slack_channel_names = 2 [deprecated = true];
   repeated google.protobuf.StringValue slack_channels = 3;
 }
