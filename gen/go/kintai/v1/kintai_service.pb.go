@@ -307,7 +307,6 @@ type GetSummariesRequest struct {
 	unknownFields protoimpl.UnknownFields
 
 	// Types that are assignable to Range:
-	//
 	//	*GetSummariesRequest_Type
 	//	*GetSummariesRequest_DateRange_
 	Range isGetSummariesRequest_Range `protobuf_oneof:"range"`
