@@ -20,7 +20,10 @@ message FinishRequest {
   optional string content = 2;
 }
 
-message FinishResponse {}
+message FinishResponse {
+  // 稼働時間の差分
+  sint32 diff_time = 1;
+}
 
 message GetSummariesRequest {
   enum RangeType {
