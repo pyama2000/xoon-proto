@@ -2,7 +2,6 @@ syntax = "proto3";
 
 package kintai.v1;
 
-import "google/protobuf/timestamp.proto";
 import "google/protobuf/wrappers.proto";
 
 option go_package = "github.com/pyama2000/xoon-proto/gen/go/kintai/v1;kintaiv1";
@@ -25,35 +24,6 @@ message FinishResponse {
   sint32 diff_time = 1;
 }
 
-message GetSummariesRequest {
-  enum RangeType {
-    RANGE_TYPE_UNSPECIFIED = 0;
-    RANGE_TYPE_WEEKLY = 1;
-    RANGE_TYPE_MONTHLY = 2;
-    RANGE_TYPE_QUARTER = 3;
-    RANGE_TYPE_HALF_YEAR = 4;
-  }
-
-  message DateRange {
-    google.protobuf.Timestamp start = 1;
-    google.protobuf.Timestamp end = 2;
-  }
-
-  oneof range {
-    RangeType type = 1;
-    DateRange date_range = 2;
-  }
-}
-
-message GetSummariesResponse {
-  message Content {
-    google.protobuf.Timestamp date = 1;
-    string summary = 2;
-  }
-
-  repeated Content content = 1;
-}
-
 enum Config {
   CONFIG_UNSPECIFIED = 0;
   CONFIG_KINTAI_NOTIFICATION_DESTINATION = 1;
@@ -73,6 +43,5 @@ message UpdateConfigResponse {}
 service KintaiService {
   rpc Start(StartRequest) returns (StartResponse) {}
   rpc Finish(FinishRequest) returns (FinishResponse) {}
-  rpc GetSummaries(GetSummariesRequest) returns (GetSummariesResponse) {}
   rpc UpdateConfig(UpdateConfigRequest) returns (UpdateConfigResponse) {}
 }
