@@ -14,7 +14,7 @@ jobs:
       - uses: Swatinem/rust-cache@v2
       - name: Build a documentation
         run: cargo doc --manifest-path './gen/rust/Cargo.toml' --release --no-deps
-      - uses: actions/upload-pages-artifact@v1
+      - uses: actions/upload-pages-artifact@v2
         with:
           path: "./gen/rust/target/doc/"
   deploy:
