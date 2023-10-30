@@ -29,6 +29,7 @@ jobs:
         working-directory: gen/rust
     steps:
       - uses: actions/checkout@v3
+      - uses: arduino/setup-protoc@v1
       - uses: dtolnay/rust-toolchain@stable
       - uses: actions/cache@v3
         continue-on-error: false
