@@ -4,10 +4,15 @@ jobs:
   check-buf:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/create-github-app-token@v1
+        id: app-token
+        with:
+          app-id: ${{ secrets.APP_ID }}
+          private-key: ${{ secrets.PRIVATE_KEY }}
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ steps.app-token.outputs.token }}
           ref: ${{ github.event.pull_request.head.ref }}
       - uses: arduino/setup-protoc@v1
       - name: Install go-grpc
