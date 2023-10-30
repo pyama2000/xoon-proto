@@ -11,13 +11,13 @@ jobs:
   check-lint-protobuf:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: bufbuild/buf-setup-action@v1
       - uses: bufbuild/buf-lint-action@v1
   check-lint-protobuf-breaking:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: bufbuild/buf-setup-action@v1
       - uses: bufbuild/buf-breaking-action@v1
         with:
@@ -28,7 +28,7 @@ jobs:
       run:
         working-directory: gen/rust
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: arduino/setup-protoc@v1
       - uses: dtolnay/rust-toolchain@stable
       - uses: actions/cache@v3
@@ -54,7 +54,7 @@ jobs:
   check-format-protobuf:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: bufbuild/buf-setup-action@v1
       - name: Check Protobuf format
         run: buf format --diff --exit-code
@@ -64,7 +64,7 @@ jobs:
       run:
         working-directory: gen/rust
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@stable
       - name: Check Rust format
         run: cargo fmt --check
