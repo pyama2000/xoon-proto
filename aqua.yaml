@@ -12,3 +12,5 @@ registries:
 packages:
 - name: bufbuild/buf@v1.27.2
 - name: protocolbuffers/protobuf/protoc@v24.4
+- name: protocolbuffers/protobuf-go/protoc-gen-go@v1.31.0
+- name: grpc/grpc-go/protoc-gen-go-grpc@cmd/protoc-gen-go-grpc/v1.3.0
