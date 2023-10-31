@@ -2,6 +2,7 @@ syntax = "proto3";
 
 package kintai.v1;
 
+import "google/protobuf/timestamp.proto";
 import "google/protobuf/wrappers.proto";
 
 option go_package = "github.com/pyama2000/xoon-proto/gen/go/kintai/v1;kintaiv1";
@@ -24,6 +25,20 @@ message FinishResponse {
   sint32 diff_time = 1;
 }
 
+message LeaveRequest {
+  message DateRange {
+    google.protobuf.Timestamp start = 1;
+    google.protobuf.Timestamp end = 2;
+  }
+
+  oneof value {
+    google.protobuf.Timestamp date = 1;
+    DateRange range = 2;
+  }
+}
+
+message LeaveResponse {}
+
 enum Config {
   CONFIG_UNSPECIFIED = 0;
   CONFIG_KINTAI_NOTIFICATION_DESTINATION = 1;
@@ -43,5 +58,7 @@ message UpdateConfigResponse {}
 service KintaiService {
   rpc Start(StartRequest) returns (StartResponse) {}
   rpc Finish(FinishRequest) returns (FinishResponse) {}
+  // 休暇をとる
+  rpc Leave(LeaveRequest) returns (LeaveResponse) {}
   rpc UpdateConfig(UpdateConfigRequest) returns (UpdateConfigResponse) {}
 }
