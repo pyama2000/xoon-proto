@@ -29,7 +29,9 @@ jobs:
         working-directory: gen/rust
     steps:
       - uses: actions/checkout@v4
-      - uses: arduino/setup-protoc@v1
+      - uses: aquaproj/aqua-installer@v2.1.2
+        with:
+          aqua_version: v2.16.2
       - uses: dtolnay/rust-toolchain@stable
       - uses: actions/cache@v3
         continue-on-error: false
