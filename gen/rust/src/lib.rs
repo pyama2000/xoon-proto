@@ -17,6 +17,12 @@ pub mod notification {
         pub const NOTIFICATION_SERVICE_FILE_DESCRIPTOR_SET: &[u8] =
             tonic::include_file_descriptor_set!("notification_service_descriptor");
     }
+
+    pub mod v2 {
+        tonic::include_proto!("notification.v2");
+        pub const NOTIFICATION_SERVICE_FILE_DESCRIPTOR_SET: &[u8] =
+            tonic::include_file_descriptor_set!("v2_notification_service_descriptor");
+    }
 }
 
 pub mod automation {
