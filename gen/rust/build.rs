@@ -34,14 +34,5 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             &[format!("{PROTO_ROOT_DIR}/feed/v1/feed_service.proto")],
             &[PROTO_ROOT_DIR],
         )?;
-    tonic_build::configure()
-        .protoc_arg("--experimental_allow_proto3_optional")
-        .file_descriptor_set_path(out_dir.join("server_status_service_descriptor.bin"))
-        .compile(
-            &[format!(
-                "{PROTO_ROOT_DIR}/server_status/v1/server_status_service.proto"
-            )],
-            &[PROTO_ROOT_DIR],
-        )?;
     Ok(())
 }
