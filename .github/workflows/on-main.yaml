@@ -1,0 +1,32 @@
+name: on-main
+on:
+  push:
+    branches: [main]
+
+jobs:
+  create-rust-cache:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: gen/rust
+    steps:
+      - uses: actions/checkout@v4
+      - uses: aquaproj/aqua-installer@v2.1.3
+        with:
+          aqua_version: v2.16.4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: actions/cache@v3
+        continue-on-error: false
+        with:
+          path: |
+            ~/.cargo/bin/
+            ~/.cargo/registry/index/
+            ~/.cargo/registry/cache/
+            ~/.cargo/git/db/
+            target/
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: ${{ runner.os }}-cargo-
+      - name: Run Rust commands
+        run: |
+          cargo clippy --bins --tests --examples --all -- -D warnings
+          cargo doc --release --no-deps
