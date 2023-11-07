@@ -23,6 +23,11 @@ jobs:
           restore-keys: ${{ runner.os }}-cargo-
       - name: Build a documentation
         run: cargo doc --manifest-path './gen/rust/Cargo.toml' --release --no-deps
+      - name: Fix permission
+        run: |
+          chmod -v -R +rX "./gen/rust/target/doc/" | while read line; do
+            echo "::warning title=Invalid file permissions automatically fixed::$line"
+          done
       - uses: actions/upload-pages-artifact@v2
         with:
           path: "./gen/rust/target/doc/"
