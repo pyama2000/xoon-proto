@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package automation.v1;
+package feed.v1;
 
 option go_package = "github.com/pyama2000/xoon-proto/gen/go/automation/v1;automaitonv1";
 
