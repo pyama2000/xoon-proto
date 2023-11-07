@@ -25,13 +25,19 @@ pub mod notification {
     }
 }
 
+pub mod feed {
+    pub mod v1 {
+        tonic::include_proto!("feed.v1");
+        pub const FEED_SERVICE_FILE_DESCRIPTOR_SET: &[u8] =
+            tonic::include_file_descriptor_set!("v1_feed_service_descriptor");
+    }
+}
+
 pub mod automation {
     pub mod v1 {
         tonic::include_proto!("automation.v1");
         pub const RELEASE_SERVICE_FILE_DESCRIPTOR_SET: &[u8] =
             tonic::include_file_descriptor_set!("release_service_descriptor");
-        pub const FEED_SERVICE_FILE_DESCRIPTOR_SET: &[u8] =
-            tonic::include_file_descriptor_set!("feed_service_descriptor");
     }
 }
 

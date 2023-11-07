@@ -38,9 +38,9 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         )?;
     tonic_build::configure()
         .protoc_arg("--experimental_allow_proto3_optional")
-        .file_descriptor_set_path(out_dir.join("feed_service_descriptor.bin"))
+        .file_descriptor_set_path(out_dir.join("v1_feed_service_descriptor.bin"))
         .compile(
-            &[format!("{PROTO_ROOT_DIR}/automation/v1/feed_service.proto")],
+            &[format!("{PROTO_ROOT_DIR}/feed/v1/feed_service.proto")],
             &[PROTO_ROOT_DIR],
         )?;
     tonic_build::configure()
