@@ -24,7 +24,29 @@ message PostSlackMessageResponse {
   string timestamp_id = 1;
 }
 
+message ReplySlackMessageRequest {
+  oneof channel {
+    // チャンネル名
+    string name = 1;
+    // チャンネル ID
+    string id = 2;
+  }
+
+  oneof message {
+    // シンプルなテキスト
+    string text = 3;
+    // Block 形式 (JSON)
+    string blocks = 4;
+  }
+
+  string timestamp_id = 5;
+}
+
+message ReplySlackMessageResponse {}
+
 service NotificationService {
   // Slack のチャンネルにメッセージを投稿する
   rpc PostSlackMessage(PostSlackMessageRequest) returns (PostSlackMessageResponse);
+  // Slack のスレッドにメッセージを投稿する
+  rpc ReplySlackMessage(ReplySlackMessageRequest) returns (ReplySlackMessageResponse);
 }

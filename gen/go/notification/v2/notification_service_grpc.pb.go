@@ -19,7 +19,8 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	NotificationService_PostSlackMessage_FullMethodName = "/notification.v2.NotificationService/PostSlackMessage"
+	NotificationService_PostSlackMessage_FullMethodName  = "/notification.v2.NotificationService/PostSlackMessage"
+	NotificationService_ReplySlackMessage_FullMethodName = "/notification.v2.NotificationService/ReplySlackMessage"
 )
 
 // NotificationServiceClient is the client API for NotificationService service.
@@ -28,6 +29,8 @@ const (
 type NotificationServiceClient interface {
 	// Slack のチャンネルにメッセージを投稿する
 	PostSlackMessage(ctx context.Context, in *PostSlackMessageRequest, opts ...grpc.CallOption) (*PostSlackMessageResponse, error)
+	// Slack のスレッドにメッセージを投稿する
+	ReplySlackMessage(ctx context.Context, in *ReplySlackMessageRequest, opts ...grpc.CallOption) (*ReplySlackMessageResponse, error)
 }
 
 type notificationServiceClient struct {
@@ -47,12 +50,23 @@ func (c *notificationServiceClient) PostSlackMessage(ctx context.Context, in *Po
 	return out, nil
 }
 
+func (c *notificationServiceClient) ReplySlackMessage(ctx context.Context, in *ReplySlackMessageRequest, opts ...grpc.CallOption) (*ReplySlackMessageResponse, error) {
+	out := new(ReplySlackMessageResponse)
+	err := c.cc.Invoke(ctx, NotificationService_ReplySlackMessage_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // NotificationServiceServer is the server API for NotificationService service.
 // All implementations should embed UnimplementedNotificationServiceServer
 // for forward compatibility
 type NotificationServiceServer interface {
 	// Slack のチャンネルにメッセージを投稿する
 	PostSlackMessage(context.Context, *PostSlackMessageRequest) (*PostSlackMessageResponse, error)
+	// Slack のスレッドにメッセージを投稿する
+	ReplySlackMessage(context.Context, *ReplySlackMessageRequest) (*ReplySlackMessageResponse, error)
 }
 
 // UnimplementedNotificationServiceServer should be embedded to have forward compatible implementations.
@@ -61,6 +75,9 @@ type UnimplementedNotificationServiceServer struct {
 
 func (UnimplementedNotificationServiceServer) PostSlackMessage(context.Context, *PostSlackMessageRequest) (*PostSlackMessageResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method PostSlackMessage not implemented")
+}
+func (UnimplementedNotificationServiceServer) ReplySlackMessage(context.Context, *ReplySlackMessageRequest) (*ReplySlackMessageResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ReplySlackMessage not implemented")
 }
 
 // UnsafeNotificationServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -92,6 +109,24 @@ func _NotificationService_PostSlackMessage_Handler(srv interface{}, ctx context.
 	return interceptor(ctx, in, info, handler)
 }
 
+func _NotificationService_ReplySlackMessage_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ReplySlackMessageRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(NotificationServiceServer).ReplySlackMessage(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: NotificationService_ReplySlackMessage_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(NotificationServiceServer).ReplySlackMessage(ctx, req.(*ReplySlackMessageRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // NotificationService_ServiceDesc is the grpc.ServiceDesc for NotificationService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -102,6 +137,10 @@ var NotificationService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "PostSlackMessage",
 			Handler:    _NotificationService_PostSlackMessage_Handler,
+		},
+		{
+			MethodName: "ReplySlackMessage",
+			Handler:    _NotificationService_ReplySlackMessage_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
