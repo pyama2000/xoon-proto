@@ -12,7 +12,7 @@ jobs:
           fetch-depth: 0
       - uses: aquaproj/aqua-installer@v2.2.0
         with:
-          aqua_version: v2.17.0
+          aqua_version: v2.17.1
       - uses: actions/cache@v3
         continue-on-error: false
         with:
