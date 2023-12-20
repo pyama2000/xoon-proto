@@ -30,7 +30,7 @@ jobs:
         run: cargo doc --manifest-path './gen/rust/Cargo.toml' --release --no-deps
       - name: Fix permission
         run: chmod -v -R +rX "./gen/rust/target/doc/"
-      - uses: actions/upload-pages-artifact@v2
+      - uses: actions/upload-pages-artifact@v3
         with:
           path: "./gen/rust/target/doc/"
   deploy:
