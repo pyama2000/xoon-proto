@@ -8,7 +8,7 @@
 #   - all
 registries:
 - type: standard
-  ref: v4.107.0 # renovate: depName=aquaproj/aqua-registry
+  ref: v4.108.0 # renovate: depName=aquaproj/aqua-registry
 packages:
 - name: bufbuild/buf@v1.28.1
 - name: protocolbuffers/protobuf/protoc@v25.1
