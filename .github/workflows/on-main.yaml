@@ -15,7 +15,7 @@ jobs:
         with:
           aqua_version: v2.21.3
       - uses: dtolnay/rust-toolchain@stable
-      - uses: actions/cache@v3
+      - uses: actions/cache@v4
         continue-on-error: false
         with:
           path: |
