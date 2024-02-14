@@ -3,7 +3,7 @@ module github.com/pyama2000/xoon-proto/gen/go
 go 1.19
 
 require (
-	google.golang.org/grpc v1.61.0
+	google.golang.org/grpc v1.61.1
 	google.golang.org/protobuf v1.32.0
 )
 
